@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="col col-lg-8">
+  <div id="app" class="col col-lg-12">
     <div class="card">
       <h5 class="card-header">
         Último lançamento: "{{ lastLaunch.missionName }}"
@@ -23,7 +23,7 @@
             </div>
             <div>
               <strong>Identificador do foguete: </strong>
-              <p>{{ lastLaunch.rocketId }}</p>
+              <p>{{ rocketInfo.name }}</p>
             </div>
             <div v-if="lastLaunch.details">
               <strong class="card-title">Detalhes da missão:</strong>
@@ -41,6 +41,10 @@
               alt="mission patch"
               class="patch-image"
             />
+          </div>
+          <div v-if="rocketInfo.flickrImages">
+            <h3>Imagem do foguete:</h3>
+            <img :src="rocketInfo.flickrImages[0]" alt="">
           </div>
         </div>
       </div>
@@ -60,15 +64,20 @@ export default {
   data() {
     return {
       lastLaunch: {},
+      rocketInfo: {}
     };
   },
   methods: {
     async getLastLaunch() {
       await httpRequest
         .get("/latest-launch")
-        .then((response) => {
+        .then(async (response) => {
           this.lastLaunch = launchResponse.parse(response.data);
-          console.log(this.lastLaunch);
+          let rocketInfoResponse = await httpRequest.get(
+            `/rocket/${this.lastLaunch.rocketId}`
+          );
+          this.rocketInfo = rocketInfoResponse.data;
+          console.log(this.rocketInfo);
         })
         .catch((error) => {
           console.log(error);

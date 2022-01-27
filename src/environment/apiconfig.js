@@ -1,3 +1,3 @@
 export default {
-    launchesBaseURL: 'https://localhost:7076/api/Launches',
+    launchesBaseURL: process.env.SPACEX_API_URL ?? 'https://localhost:7076/api/Launches',
 }

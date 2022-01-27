@@ -1,32 +1,32 @@
 <template>
-  <div id="app" class="col col-lg-8">
+  <div id="app" class="col col-lg-12">
     <div class="card">
       <h5 class="card-header">
-        Próximo lançamento: "{{ lastLaunch.missionName }}"
+        Próximo lançamento: "{{ nextLaunch.missionName }}"
       </h5>
       <div class="card-body">
         <div class="row">
           <div class="col col-md-6">
             <div>
               <strong>Número do vôo: </strong>
-              <p>{{ lastLaunch.flightNumber }}</p>
+              <p>{{ nextLaunch.flightNumber }}</p>
             </div>
-            <div v-if="lastLaunch.missionId">
+            <div v-if="nextLaunch.missionId">
               <strong>Identificador da missão: </strong>
-              <p>{{ lastLaunch.missionId }}</p>
+              <p>{{ nextLaunch.missionId }}</p>
             </div>
             <div>
               <strong>Data de lançamento: </strong>
-              <p>{{ new Date(lastLaunch.launchDateUtc).toUTCString() }}</p>
+              <p>{{ new Date(nextLaunch.launchDateUtc).toUTCString() }}</p>
             </div>
             <div>
               <strong>Identificador do foguete: </strong>
-              <p>{{ lastLaunch.rocketId }}</p>
+              <p>{{ rocketInfo.name }}</p>
             </div>
-            <div v-if="lastLaunch.details">
+            <div v-if="nextLaunch.details">
               <strong class="card-title">Detalhes da missão:</strong>
               <p class="card-text">
-                {{ lastLaunch.details }}
+                {{ nextLaunch.details }}
                 With supporting text below as a natural lead-in to additional
                 content.
               </p>
@@ -34,11 +34,15 @@
           </div>
           <div class="col col-md-6">
             <img
-              v-if="lastLaunch.patchImageSmall"
-              :src="lastLaunch.patchImageSmall"
+              v-if="nextLaunch.patchImageSmall"
+              :src="nextLaunch.patchImageSmall"
               alt="mission patch"
               class="patch-image"
             />
+          </div>
+          <div v-if="rocketInfo.flickrImages">
+            <h3>Imagem do foguete</h3>
+            <img :src="rocketInfo.flickrImages[0]" alt="">
           </div>
         </div>
       </div>
@@ -53,19 +57,25 @@ import launchResponse from "@/models/launchResponse";
 export default {
   name: "NextLaunch",
   mounted() {
-    this.getLastLaunch();
+    this.getnextLaunch();
   },
   data() {
     return {
-      lastLaunch: {},
+      nextLaunch: {},
+      rocketInfo: {}
     };
   },
   methods: {
-    async getLastLaunch() {
+    async getnextLaunch() {
       await httpRequest
         .get("/next-launch")
-        .then((response) => {
-          this.lastLaunch = launchResponse.parse(response.data);
+        .then(async (response) => {
+          this.nextLaunch = launchResponse.parse(response.data);
+          let rocketInfoResponse = await httpRequest.get(
+            `/rocket/${this.nextLaunch.rocketId}`
+          );
+          this.rocketInfo = rocketInfoResponse.data;
+          console.log(this.rocketInfo);
         })
         .catch((error) => {
           console.log(error);

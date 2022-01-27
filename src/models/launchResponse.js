@@ -1,30 +1,26 @@
+function createElement(info) {
+    return {
+        flightNumber: info.flightNumber,
+        missionName: info.missionName,
+        missionId: info.missionId,
+        launchDateUtc: info.fireDateUtc,
+        rocketId: info.rocketId,
+        details: info.missionDetails,
+        patchImageSmall: info.patchLinkSmall,
+        patchImageLarge: info.patchLinkLarge
+    }
+}
+
 export default {
+
     parse(response) {
-        return {
-            flightNumber: response.flight_number,
-            missionName: response.name,
-            missionId: response.mission_id,
-            launchDateUtc: response.date_utc,
-            rocketId: response.rocket,
-            details: response.details,
-            patchImageSmall: response.links.patch.small,
-            patchImageLarge: response.links.patch.large
-        }
+        return createElement(response);
     },
     parseList(response) {
         let launches = [];
         response.forEach((element) => {
-            launches.push({
-                flightNumber: element.flight_number,
-                missionName: element.name,
-                missionId: element.mission_id,
-                launchDateUtc: element.date_utc,
-                rocketId: element.rocket,
-                details: element.details,
-                patchImageSmall: element.links.patch.small,
-                patchImageLarge: element.links.patch.large
-            });
+            launches.push(createElement(element));
         });
         return launches;
-    }
+    },
 }

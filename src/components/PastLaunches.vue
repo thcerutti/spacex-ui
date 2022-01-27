@@ -12,9 +12,6 @@
           <strong>Data de Lançamento</strong>
         </td>
         <td>
-          <strong>Foguete</strong>
-        </td>
-        <td>
           <strong>Patch</strong>
         </td>
       </thead>
@@ -23,7 +20,6 @@
           <td>{{ launch.flightNumber }}</td>
           <td>{{ launch.missionName }}</td>
           <td>{{ new Date(launch.launchDateUtc).toUTCString() }}</td>
-          <td>{{ launch.rocketId }}</td>
           <td>
             <a
               :href="launch.patchImageLarge"

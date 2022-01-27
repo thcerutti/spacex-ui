@@ -11,16 +11,12 @@
             <td>
                 <strong>Data de Lançamento</strong>
             </td>
-            <td>
-                <strong>Foguete</strong>
-            </td>
         </thead>
         <tbody>
             <tr v-for="launch in launches" :key="launch.flightNumber">
                 <td>{{ launch.flightNumber }}</td>
                 <td>{{ launch.missionName }}</td>
                 <td>{{ new Date(launch.launchDateUtc).toUTCString() }}</td>
-                <td>{{ launch.rocketId }}</td>
             </tr>
         </tbody>
     </table>
