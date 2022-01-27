@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="container">
+    <!-- <script src="https://www.googleoptimize.com/optimize.js?id=OPT-PWFNNNF"></script> -->
     <ul class="nav justify-content-center main-nav">
       <li class="nav-item">
         <router-link to="/" class="btn btn-outline-dark">Home</router-link>
@@ -26,6 +27,21 @@
     />
   </div>
 </template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {};
+  },
+  mounted() {
+    let recaptchaScript = document.createElement('script')
+      recaptchaScript.setAttribute('src', 'https://www.googleoptimize.com/optimize.js?id=OPT-PWFNNNF')
+      document.head.appendChild(recaptchaScript)
+  },
+  methods: {},
+};
+</script>
 
 <style>
   .main-nav .btn {
