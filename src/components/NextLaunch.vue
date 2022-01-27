@@ -2,11 +2,17 @@
   <div id="app" class="col col-lg-12">
     <div class="card">
       <h5 class="card-header">
+        <img
+          v-if="nextLaunch.patchImageSmall"
+          :src="nextLaunch.patchImageSmall"
+          alt="mission patch"
+          class="patch-image"
+        />
         Próximo lançamento: "{{ nextLaunch.missionName }}"
       </h5>
       <div class="card-body">
         <div class="row">
-          <div class="col col-md-6">
+          <div class="col col-md-7">
             <div>
               <strong>Número do vôo: </strong>
               <p>{{ nextLaunch.flightNumber }}</p>
@@ -20,7 +26,7 @@
               <p>{{ new Date(nextLaunch.launchDateUtc).toUTCString() }}</p>
             </div>
             <div>
-              <strong>Identificador do foguete: </strong>
+              <strong>Foguete: </strong>
               <p>{{ rocketInfo.name }}</p>
             </div>
             <div v-if="nextLaunch.details">
@@ -32,17 +38,8 @@
               </p>
             </div>
           </div>
-          <div class="col col-md-6">
-            <img
-              v-if="nextLaunch.patchImageSmall"
-              :src="nextLaunch.patchImageSmall"
-              alt="mission patch"
-              class="patch-image"
-            />
-          </div>
-          <div v-if="rocketInfo.flickrImages">
-            <h3>Imagem do foguete</h3>
-            <img :src="rocketInfo.flickrImages[0]" alt="">
+          <div v-if="rocketInfo.flickrImages" class="col col-md-5">
+            <img :src="rocketInfo.flickrImages[0]" alt="imagem do foguete" class="rocket-image" />
           </div>
         </div>
       </div>
@@ -62,7 +59,7 @@ export default {
   data() {
     return {
       nextLaunch: {},
-      rocketInfo: {}
+      rocketInfo: {},
     };
   },
   methods: {
@@ -84,3 +81,12 @@ export default {
   },
 };
 </script>
+
+<style>
+.patch-image {
+  max-width: 50px;
+}
+.rocket-image {
+  max-width: 500px;
+}
+</style>

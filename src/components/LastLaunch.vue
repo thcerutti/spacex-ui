@@ -2,11 +2,17 @@
   <div id="app" class="col col-lg-12">
     <div class="card">
       <h5 class="card-header">
+        <img
+          v-if="lastLaunch.patchImageSmall"
+          :src="lastLaunch.patchImageSmall"
+          alt="mission patch"
+          class="patch-image"
+        />
         Último lançamento: "{{ lastLaunch.missionName }}"
       </h5>
       <div class="card-body">
         <div class="row">
-          <div class="col col-md-6">
+          <div class="col col-md-7">
             <div>
               <strong>Número do vôo: </strong>
               <p>{{ lastLaunch.flightNumber }}</p>
@@ -17,12 +23,10 @@
             </div>
             <div>
               <strong>Data de lançamento: </strong>
-              <p>{{
-                new Date(lastLaunch.launchDateUtc).toUTCString()
-              }}</p>
+              <p>{{ new Date(lastLaunch.launchDateUtc).toUTCString() }}</p>
             </div>
             <div>
-              <strong>Identificador do foguete: </strong>
+              <strong>Foguete: </strong>
               <p>{{ rocketInfo.name }}</p>
             </div>
             <div v-if="lastLaunch.details">
@@ -34,17 +38,12 @@
               </p>
             </div>
           </div>
-          <div class="col col-md-6">
+          <div v-if="rocketInfo.flickrImages" class="col col-md-5">
             <img
-              v-if="lastLaunch.patchImageSmall"
-              :src="lastLaunch.patchImageSmall"
-              alt="mission patch"
-              class="patch-image"
+              :src="rocketInfo.flickrImages[0]"
+              alt="imagem do foguete"
+              class="rocket-image"
             />
-          </div>
-          <div v-if="rocketInfo.flickrImages">
-            <h3>Imagem do foguete:</h3>
-            <img :src="rocketInfo.flickrImages[0]" alt="">
           </div>
         </div>
       </div>
@@ -64,7 +63,7 @@ export default {
   data() {
     return {
       lastLaunch: {},
-      rocketInfo: {}
+      rocketInfo: {},
     };
   },
   methods: {
@@ -89,10 +88,9 @@ export default {
 
 <style>
 .patch-image {
-  max-width: 200px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+  max-width: 50px;
+}
+.rocket-image {
+  max-width: 500px;
 }
 </style>
