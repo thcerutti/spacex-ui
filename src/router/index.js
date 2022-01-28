@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import LastLaunch from '../views/LastLaunch.vue'
+import NextLaunch from '../views/NextLaunch.vue'
+import NextLaunches from '../views/NextLaunches.vue'
+import PastLaunches from '../views/PastLaunches.vue'
 
 Vue.use(VueRouter)
 
@@ -13,22 +17,22 @@ const routes = [
   {
     path: '/last-launch',
     name: 'NextLaunch',
-    component: () => import('../components/LastLaunch.vue')
+    component: LastLaunch
   },
   {
     path: '/next-launch',
     name: 'NextLaunch',
-    component: () => import('../components/NextLaunch.vue')
+    component: NextLaunch
   },
   {
     path: '/next-launches',
     name: 'NextLaunch',
-    component: () => import('../components/NextLaunches.vue')
+    component: NextLaunches
   },
   {
     path: '/past-launches',
     name: 'NextLaunch',
-    component: () => import('../components/PastLaunches.vue')
+    component: PastLaunches
   }
 ]
 

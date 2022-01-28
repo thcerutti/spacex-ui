@@ -23,3 +23,4 @@ Foi utilizado VueRouter para separar as responsabilidades das páginas, e cada p
 
 Centralizei a responsabilidade de requisições em um serviço, abstraindo o `axios` do restante da implementação.
 
+O projeto de front-end está publicado na minha conta Azure como um `Static Web App` [neste endereço](https://green-dune-0effe7210.1.azurestaticapps.net) e o deploy está vinculado à novos commits na branch `main` deste repo.
