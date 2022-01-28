@@ -42,7 +42,6 @@ export default {
             `/rocket/${this.nextLaunch.rocketId}`
           );
           this.rocketInfo = rocketInfoResponse.data;
-          console.log(this.rocketInfo);
         })
         .catch((error) => {
           console.log(error);
